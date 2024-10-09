@@ -11,7 +11,6 @@ import nl.com.shipment.pss.model.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,21 +56,20 @@ public class RestExceptionHandler {
         log.error("Receiver not found : {}", ex.getMessage());
         return ResponseEntity.internalServerError().body(errorResponse);
     }
-    @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<ErrorResponse> handleHttpClientErrorException(HttpClientErrorException ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus(400);
-        errorResponse.setErrorMessage(ex.getMessage());
-        log.error("Receiver not found : {}", ex.getMessage());
-        return ResponseEntity.internalServerError().body(errorResponse);
-    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(500);
         errorResponse.setErrorMessage(INTERNAL_SERVER_ERROR_MESSAGE);
-        log.error("Internal server error :{}", ex.getMessage());
+
+        Error error = new Error();
+        error.setField("Internal Server Error");
+        error.setMessage(ex.getMessage());
+
+        errorResponse.setErrors(List.of(error));
+        log.error("Internal server error: {}", ex.getMessage());
+
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 
