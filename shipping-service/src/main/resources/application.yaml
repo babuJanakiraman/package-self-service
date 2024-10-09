@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: package-shipping-service
+
+server:
+  port: 8100
+

@@ -1,0 +1,112 @@
+[
+  {
+    "packageId": "3f6c794b-2c96-491e-81fb-a2f9731d02c4",
+    "packageName": "package1",
+    "packageSize": "M",
+    "postalCode": "1082PP",
+    "streetName": "Gustav Mahlerlaan 10",
+    "receiverName": "Robert Swaak",
+    "orderStatus": "DELIVERED",
+    "expectedDeliveryDate": "2024-10-18T22:00:00.000+00:00",
+    "actualDeliveryDateTime": "2024-10-17T06:30:00.000+00:00"
+  },
+  {
+    "packageId": "4a7d794b-3d97-492e-82fc-b3f9731d03d5",
+    "packageName": "package2",
+    "packageSize": "L",
+    "postalCode": "1083PP",
+    "streetName": "Beethovenstraat 20",
+    "receiverName": "Jane Doe",
+    "orderStatus": "SENT",
+    "expectedDeliveryDate": "2021-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "5b8e794b-4e98-493e-83fd-c4f9731d04e6",
+    "packageName": "package3",
+    "packageSize": "S",
+    "postalCode": "1084PP",
+    "streetName": "Bachstraat 30",
+    "receiverName": "John Smith",
+    "orderStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "6c9f794b-5f99-494e-84fe-d5f9731d05f7",
+    "packageName": "package4",
+    "packageSize": "XL",
+    "postalCode": "1085PP",
+    "streetName": "Mozartlaan 40",
+    "receiverName": "Alice Johnson",
+    "orderStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "7d0g794b-6g00-495e-85ff-e6f9731d06g8",
+    "packageName": "package5",
+    "packageSize": "M",
+    "postalCode": "1086PP",
+    "streetName": "Chopinlaan 50",
+    "receiverName": "Bob Brown",
+    "orderStatus": "DELIVERED",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": "2024-10-05T06:30:00.000+00:00"
+  },
+  {
+    "packageId": "8e1h794b-7h01-496e-86gg-f7f9731d07h9",
+    "packageName": "package6",
+    "packageSize": "L",
+    "postalCode": "1087PP",
+    "streetName": "Vivaldilaan 60",
+    "receiverName": "Charlie Green",
+    "orderStatus": "SENT",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "9f2i794b-8i02-497e-87hh-g8f9731d08i0",
+    "packageName": "package7",
+    "packageSize": "S",
+    "postalCode": "1088PP",
+    "streetName": "Tchaikovskilaan 70",
+    "receiverName": "David White",
+    "orderStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "0g3j794b-9j03-498e-88ii-h9f9731d09j1",
+    "packageName": "package8",
+    "packageSize": "M",
+    "postalCode": "1082PP",
+    "streetName": "Gustav Mahlerlaan 10",
+    "receiverName": "Robert Swaak",
+    "orderStatus": "SENT",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "1h4k794b-0k04-499e-89jj-i0f9731d00k2",
+    "packageName": "package9",
+    "packageSize": "L",
+    "postalCode": "1083PP",
+    "streetName": "Beethovenstraat 20",
+    "receiverName": "Jane Doe",
+    "orderStatus": "IN_PROGRESS",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": null
+  },
+  {
+    "packageId": "2i5l794b-1l05-400e-90kk-j1f9731d01l3",
+    "packageName": "package10",
+    "packageSize": "S",
+    "postalCode": "1084PP",
+    "streetName": "Bachstraat 30",
+    "receiverName": "John Smith",
+    "orderStatus": "DELIVERED",
+    "expectedDeliveryDate": "2024-10-31T23:00:00.000+00:00",
+    "actualDeliveryDateTime": "2024-10-04T22:00:00.000+00:00"
+  }
+]

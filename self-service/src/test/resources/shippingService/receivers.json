@@ -1,0 +1,66 @@
+[
+  {
+    "employeeId": "10001",
+    "name": "Robert Swaak",
+    "address": {
+      "streetName": "Street1",
+      "postalCode": "3000GB"
+    }
+  },
+  {
+    "employeeId": "10002",
+    "name": "Jane Doe",
+    "address": {
+      "streetName": "Street2",
+      "postalCode": "3001GB"
+    }
+  },
+  {
+    "employeeId": "10003",
+    "name": "John Smith",
+    "address": {
+      "streetName": "Street3",
+      "postalCode": "3002GB"
+    }
+  },
+  {
+    "employeeId": "10004",
+    "name": "Alice Johnson",
+    "address": {
+      "streetName": "Street4",
+      "postalCode": "3003GB"
+    }
+  },
+  {
+    "employeeId": "10005",
+    "name": "Bob Brown",
+    "address": {
+      "streetName": "Street5",
+      "postalCode": "3004GB"
+    }
+  },
+  {
+    "employeeId": "10006",
+    "name": "Charlie Green",
+    "address": {
+      "streetName": "Street6",
+      "postalCode": "3005GB"
+    }
+  },
+  {
+    "employeeId": "10007",
+    "name": "David White",
+    "address": {
+      "streetName": "Street7",
+      "postalCode": "3006GB"
+    }
+  },
+  {
+    "employeeId": "10008",
+    "name": "Robert Swaak",
+    "address": {
+      "streetName": "Street8",
+      "postalCode": "3007GB"
+    }
+  }
+]

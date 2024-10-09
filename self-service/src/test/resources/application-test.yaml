@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: self-service
+
+
+shippingService:
+  url: http://localhost:8089
+  connectionTimeoutInMillis: 300
+  maxHttpPoolSize: 20
+  readTimeoutInMillis: 3000
+  keepAliveStrategy: 5000
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      shipping-service:
+        registerHealthIndicator: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 10
+        maxWaitDurationInHalfOpenState: 10s
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+  retry:
+    instances:
+      shipping-service:
+        maxAttempts: 2
+        waitDuration: 1s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        randomizedWaitFactor: 0.5
+        retryExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.io.IOException
+
+server:
+  port: 8200
+
+
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>nl.com.shipment.pss</groupId>
+        <artifactId>pss</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>shipping-service</artifactId>
+    <version>1.0</version>
+    <name>shipping-service</name>
+    <description>shipping-service</description>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.8.0</version>
+                <executions>
+                    <execution>
+                        <id>package-shipping-service-swagger-generation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger/package-shipping-service.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <library>spring-boot</library>
+                            <configOptions>
+                                <serializableModel>true</serializableModel>
+                                <interfaceOnly>true</interfaceOnly>
+                                <dateLibrary>java17</dateLibrary>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <apiPackage>nl.com.shipment.pss.shipping.api</apiPackage>
+                                <modelPackage>nl.com.shipment.pss.shipping.model</modelPackage>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useTags>true</useTags>
+                                <useBeanValidation>true</useBeanValidation>
+                                <useLombok>true</useLombok>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <modelAllArgsConstructor>true</modelAllArgsConstructor>
+                            </configOptions>
+                            <ignoreFileOverride>${basedir}/src/main/resources/swagger/.swagger-codegen-ignore</ignoreFileOverride>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

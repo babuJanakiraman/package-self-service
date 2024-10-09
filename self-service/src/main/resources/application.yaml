@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: self-service
+  security:
+    user:
+      name: user
+      password: userPass
+
+shippingService:
+  url: http://localhost:8100
+  connectionTimeoutInMillis: 300
+  maxHttpPoolSize: 20
+  readTimeoutInMillis: 3000
+  keepAliveStrategy: 5000
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      shipping-service:
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        minimumNumberOfCalls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5000
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        register-health-indicator: true
+  retry:
+    instances:
+      shipping-service:
+        max-attempts: 2
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        randomized-wait-factor: 0.5
+        retry-exceptions:
+          - java.net.SocketTimeoutException
+          - org.springframework.web.client.HttpServerErrorException
+          - java.io.IOException
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    circuitbreakers:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  port: 8200

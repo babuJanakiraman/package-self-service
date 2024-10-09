@@ -1,0 +1,253 @@
+openapi: 3.0.3
+info:
+  title: Package Self Service
+  description: Service used to send packages to certain addresses.
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8200'
+paths:
+  /api/packages/receivers:
+    get:
+      tags:
+        - Package
+      summary: List available receivers
+      operationId: getAllReceivers
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: A paginated list of available receivers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Receiver'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/packages:
+    post:
+      tags:
+        - Package
+      summary: Submit Package for sending
+      operationId: submitPackage
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageVO'
+      responses:
+        '201':
+          description: Package submitted successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/packages/sender/{senderEmployeeId}:
+    get:
+      tags:
+        - Package
+      summary: List all package-details for a sender
+      operationId: getPackagebySender
+      security:
+        - basicAuth: []
+      parameters:
+        - name: senderEmployeeId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          example: IN_PROGRESS
+          schema:
+            type: string
+            enum:
+              - IN_PROGRESS
+              - SENT
+              - DELIVERED
+        - name: offset
+          in: query
+          required: false
+          example: 1
+          schema:
+            type: integer
+        - name: limit
+          description: >
+            Sets the limit of the number of ShippingOrderDetails.
+          in: query
+          example: 10
+          required: false
+          schema:
+            type: integer
+            maximum: 10
+            minimum: 1
+      responses:
+        '200':
+          description: A list of package details for the sender
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PackageDetail'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/packages/{packageId}:
+    get:
+      tags:
+        - Package
+      summary: List the details of an individual package
+      operationId: getPackage
+      security:
+        - basicAuth: []
+      parameters:
+        - name: packageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Details of the package
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageDetail'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Receiver:
+      required:
+        - employeeId
+        - name
+        - address
+      type: object
+      properties:
+        employeeId:
+          type: string
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      required:
+        - streetName
+        - postalCode
+      type: object
+      properties:
+        streetName:
+          type: string
+        postalCode:
+          type: string
+
+    PackageVO:
+      type: object
+      required:
+        - packageName
+        - weight
+        - receiverId
+        - senderId
+      properties:
+        packageName:
+          type: string
+          minLength: 5
+        weight:
+          type: number
+          format: double
+        receiverId:
+          type: string
+          minLength: 5
+        senderId:
+          type: string
+          minLength: 5
+    PackageDetail:
+      type: object
+      properties:
+        packageId:
+          type: string
+        packageName:
+          type: string
+        packageStatus:
+          type: string
+          enum:
+            - IN_PROGRESS
+            - SENT
+            - DELIVERED
+          example: "DELIVERED"
+        dateOfRegistration:
+          type: string
+          format: string
+        dateOfReceipt:
+          type: string
+          format: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorMessage:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      nullable: true
