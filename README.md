@@ -69,6 +69,7 @@ API documentation self-service is available at http://localhost:8200/swagger-ui.
 
 ## Create Docker Image
 docker buildx build -t self-service:latest .
+
 docker buildx build -t shipping-service:latest .
 
 # Run the self-service image
