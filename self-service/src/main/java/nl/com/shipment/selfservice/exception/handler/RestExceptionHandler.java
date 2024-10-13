@@ -57,6 +57,21 @@ public class RestExceptionHandler {
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 
+    @ExceptionHandler(TechnicalException.class)
+    public ResponseEntity<ErrorResponse> handleRestClientException(TechnicalException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(ex.getStatus());
+        errorResponse.setErrorMessage(ex.getMessage());
+
+        Error error = new Error();
+        error.setField(ex.getErrors().get(0).getField());
+        error.setMessage(ex.getErrors().get(0).getMessage());
+
+        errorResponse.setErrors(List.of(error));
+        log.error("Technical exception: {}", ex.getMessage());
+        return ResponseEntity.internalServerError().body(errorResponse);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse();
