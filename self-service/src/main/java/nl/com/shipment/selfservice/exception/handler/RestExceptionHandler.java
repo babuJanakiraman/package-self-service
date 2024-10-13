@@ -3,6 +3,7 @@ package nl.com.shipment.selfservice.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.com.shipment.selfservice.exception.ReceiverNotFoundException;
+import nl.com.shipment.selfservice.exception.TechnicalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import nl.com.shipment.pss.model.Error;
