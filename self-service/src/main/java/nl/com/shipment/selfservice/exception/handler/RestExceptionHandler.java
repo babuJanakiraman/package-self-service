@@ -3,6 +3,7 @@ package nl.com.shipment.selfservice.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.com.shipment.selfservice.exception.ReceiverNotFoundException;
+import nl.com.shipment.selfservice.exception.TechnicalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import nl.com.shipment.pss.model.Error;
@@ -54,6 +55,21 @@ public class RestExceptionHandler {
         errorResponse.setStatus(500);
         errorResponse.setErrorMessage(ex.getMessage());
         log.error("Receiver not found : {}", ex.getMessage());
+        return ResponseEntity.internalServerError().body(errorResponse);
+    }
+
+    @ExceptionHandler(TechnicalException.class)
+    public ResponseEntity<ErrorResponse> handleRestClientException(TechnicalException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(ex.getStatus());
+        errorResponse.setErrorMessage(ex.getMessage());
+
+        Error error = new Error();
+        error.setField(ex.getErrors().get(0).getField());
+        error.setMessage(ex.getErrors().get(0).getMessage());
+
+        errorResponse.setErrors(List.of(error));
+        log.error("Technical exception: {}", ex.getMessage());
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 
