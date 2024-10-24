@@ -3,6 +3,7 @@ package nl.com.shipment.selfservice.common;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
 import nl.com.shipment.pss.model.Error;
 import nl.com.shipment.selfservice.exception.TechnicalException;
@@ -31,7 +32,8 @@ public class RestClient {
     }
 
     
-    @CircuitBreaker(name = SHIPPING_SERVICE, fallbackMethod = "fallback")
+    @CircuitBreaker(name = SHIPPING_SERVICE)
+    @Retry(name = SHIPPING_SERVICE)
     public <T> T sendRequest(String uri, HttpMethod method, Object data, ParameterizedTypeReference<T> typeReference) {
         try {
             log.info("Sending request to: {}, method: {}, RequestData: {}", uri, method, data);
@@ -46,11 +48,6 @@ public class RestClient {
             log.error("Unexpected error occurred while sending request to: {}, method: {}, RequestData: {}. Exception: {}", uri, method, data, ex.getMessage());
             throw ex;
         }
-    }
-
-    public <T> T fallback(String uri, HttpMethod method, Object data, ParameterizedTypeReference<T> typeReference, Throwable throwable) {
-        log.error("Fallback method called due to: {}", throwable.getMessage());
-        return null;
     }
 
     private TechnicalException parseErrorResponse(String responseBody) {
